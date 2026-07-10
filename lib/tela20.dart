@@ -21,30 +21,29 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Definimos o roxo padrão do layout com base nas telas anteriores e na imagem
-    const Color purpleColor = Color(0xFF6200EE); 
+    // Tom de roxo atualizado para combinar perfeitamente com a Tela 02
+    const Color purpleColor = Color(0xFF6A3DE8); 
 
     return Scaffold(
-      backgroundColor: purpleColor, // O fundo geral começa roxo
+      backgroundColor: purpleColor, 
       body: SafeArea(
         child: Stack(
           children: [
             // -------------------------------------------------------------
-            // CAMADA 1: CONTEÚDO SUPERIOR (Fundo Roxo + Imagem do Foguete)
+            // CAMADA 1: Ilustração Centralizada (Foguete)
             // -------------------------------------------------------------
             Column(
               children: [
-                const SizedBox(height: 40),
-                // Contêiner para centralizar e exibir a imagem do foguete da internet
+                const SizedBox(height: 50),
                 Center(
                   child: SizedBox(
-                    height: 280,
+                    height: 260,
+                    // Substituição da foto antiga por uma ilustração integrada
                     child: Image.network(
-                      'https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?q=80&w=400', // Imagem conceitual de foguete/espaço funcional
+                      'https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?q=80&w=400', 
                       fit: BoxFit.contain,
                       errorBuilder: (context, error, stackTrace) {
-                        // Proteção caso o link falhe
-                        return const Icon(Icons.rocket_launch, color: Colors.white, size: 80);
+                        return const Icon(Icons.rocket_launch_rounded, color: Colors.white, size: 90);
                       },
                     ),
                   ),
@@ -53,26 +52,25 @@ class OnboardingScreen extends StatelessWidget {
             ),
 
             // -------------------------------------------------------------
-            // CAMADA 2: CARD BRANCO INFERIOR (Textos + Indicadores + Botão)
+            // CAMADA 2: Painel Branco Inferior de Informações
             // -------------------------------------------------------------
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
                 width: double.infinity,
-                // Define a altura proporcional para o card cobrir a parte de baixo da tela
                 height: MediaQuery.of(context).size.height * 0.45,
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(32),  // Cantos arredondados no topo igual ao print
+                    topLeft: Radius.circular(32),  
                     topRight: Radius.circular(32),
                   ),
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // Distribui os blocos verticalmente
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween, 
                   children: [
-                    // Bloco de Textos
+                    // Textos de Boas-vindas
                     Column(
                       children: const [
                         Text(
@@ -97,37 +95,38 @@ class OnboardingScreen extends StatelessWidget {
                       ],
                     ),
 
-                    // Indicador de Páginas (3 bolinhas na horizontal)
+                    // Três bolinhas indicadoras de progresso
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        _buildDot(isActive: true, color: purpleColor), // Bolinha ativa roxa
+                        _buildDot(isActive: true, color: purpleColor), 
                         const SizedBox(width: 8),
-                        _buildDot(isActive: false, color: purpleColor), // Bolinha inativa clara
+                        _buildDot(isActive: false, color: purpleColor), 
                         const SizedBox(width: 8),
-                        _buildDot(isActive: false, color: purpleColor), // Bolinha inativa clara
+                        _buildDot(isActive: false, color: purpleColor), 
                       ],
                     ),
 
-                    // Botão "Próximo"
-                    SizedBox(
-                      width: double.infinity,
-                      height: 54,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // Ação do botão
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: purpleColor,
-                          foregroundColor: Colors.white,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16), // Bordas arredondadas do botão
+                    // Botão "Próximo" ajustado com margens laterais perfeitas
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 54,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: purpleColor,
+                            foregroundColor: Colors.white,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16), 
+                            ),
                           ),
-                        ),
-                        child: const Text(
-                          'Próximo',
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          child: const Text(
+                            'Próximo',
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                     ),
@@ -141,14 +140,13 @@ class OnboardingScreen extends StatelessWidget {
     );
   }
 
-  // 3. DOCUMENTAÇÃO INTERNA: FUNÇÃO AUXILIAR PARA AS BOLINHAS INDICADORAS
+  // 3. DOCUMENTAÇÃO INTERNA: COMPONENTE AUXILIAR PARA CADA BOLINHA DO INDICADOR
   Widget _buildDot({required bool isActive, required Color color}) {
     return Container(
       width: 10,
       height: 10,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        // Se a bolinha estiver ativa, usa a cor roxa cheia. Se não, usa um roxo bem clarinho opaco.
         color: isActive ? color : color.withValues(alpha: 0.25),
       ),
     );
